@@ -144,6 +144,7 @@ function startAutoSlide() {
 }
 
 
+
 function stopAutoSlide() {
   clearInterval(autoSlideInterval);
 }
