@@ -27,6 +27,16 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
+// ===== Navbar background change on scroll =====
+window.addEventListener('scroll', function() {
+  const header = document.querySelector('header');
+  if (window.scrollY > 50) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+});
+
 // ===== Hero Slideshow =====
 let currentSlide = 0;
 const slides = document.querySelectorAll('.slide');
@@ -119,7 +129,7 @@ galleryImages.forEach(img => {
   });
 });
 
-// ===== Gallery Carousel (Auto-slide + Swipe + Arrows) =====
+// ===== Gallery Carousel =====
 const galleryCarousel = document.querySelector('.gallery-carousel');
 const prevBtn = document.querySelector('.gallery-nav.prev');
 const nextBtn = document.querySelector('.gallery-nav.next');
@@ -129,30 +139,34 @@ let isDragging = false;
 let startX;
 let scrollLeft;
 
-function startAutoSlide() {
-  autoSlideInterval = setInterval(() => {
-    const maxScrollLeft = galleryCarousel.scrollWidth - galleryCarousel.clientWidth;
-    if (galleryCarousel.scrollLeft >= maxScrollLeft - 5) {
-      galleryCarousel.scrollTo({ left: 0, behavior: 'smooth' });
-    } else {
-      galleryCarousel.scrollBy({
-        left: galleryCarousel.clientWidth,
-        behavior: 'smooth'
-      });
-    }
-  }, 5000); // slower speed
+// Helper: scroll to specific slide index
+function scrollToSlide(index) {
+  const slideWidth = galleryCarousel.clientWidth;
+  galleryCarousel.scrollTo({
+    left: slideWidth * index,
+    behavior: 'smooth'
+  });
 }
 
-
-
+// Auto-slide with seamless loop
+let currentGalleryIndex = 0;
+function startAutoSlide() {
+  autoSlideInterval = setInterval(() => {
+    currentGalleryIndex++;
+    if (currentGalleryIndex >= galleryImages.length) {
+      currentGalleryIndex = 0;
+    }
+    scrollToSlide(currentGalleryIndex);
+  }, 5000);
+}
 function stopAutoSlide() {
   clearInterval(autoSlideInterval);
 }
 
-// Swipe support
+// Swipe support (mouse)
 galleryCarousel.addEventListener('mousedown', e => {
   isDragging = true;
-  startX = e.pageX - galleryCarousel.offsetLeft;
+  startX = e.pageX;
   scrollLeft = galleryCarousel.scrollLeft;
   stopAutoSlide();
 });
@@ -167,15 +181,15 @@ galleryCarousel.addEventListener('mouseup', () => {
 galleryCarousel.addEventListener('mousemove', e => {
   if (!isDragging) return;
   e.preventDefault();
-  const x = e.pageX - galleryCarousel.offsetLeft;
-  const walk = (x - startX) * 2;
+  const x = e.pageX;
+  const walk = (x - startX);
   galleryCarousel.scrollLeft = scrollLeft - walk;
 });
 
-// Touch support
+// Swipe support (touch)
 galleryCarousel.addEventListener('touchstart', e => {
   isDragging = true;
-  startX = e.touches[0].pageX - galleryCarousel.offsetLeft;
+  startX = e.touches[0].pageX;
   scrollLeft = galleryCarousel.scrollLeft;
   stopAutoSlide();
 });
@@ -185,8 +199,8 @@ galleryCarousel.addEventListener('touchend', () => {
 });
 galleryCarousel.addEventListener('touchmove', e => {
   if (!isDragging) return;
-  const x = e.touches[0].pageX - galleryCarousel.offsetLeft;
-  const walk = (x - startX) * 2;
+  const x = e.touches[0].pageX;
+  const walk = (x - startX);
   galleryCarousel.scrollLeft = scrollLeft - walk;
 });
 
@@ -194,13 +208,15 @@ galleryCarousel.addEventListener('touchmove', e => {
 if (prevBtn && nextBtn) {
   prevBtn.addEventListener('click', () => {
     stopAutoSlide();
-    galleryCarousel.scrollBy({ left: -galleryCarousel.clientWidth, behavior: 'smooth' });
+    currentGalleryIndex = (currentGalleryIndex - 1 + galleryImages.length) % galleryImages.length;
+    scrollToSlide(currentGalleryIndex);
     startAutoSlide();
   });
 
   nextBtn.addEventListener('click', () => {
     stopAutoSlide();
-    galleryCarousel.scrollBy({ left: galleryCarousel.clientWidth, behavior: 'smooth' });
+    currentGalleryIndex = (currentGalleryIndex + 1) % galleryImages.length;
+    scrollToSlide(currentGalleryIndex);
     startAutoSlide();
   });
 }
