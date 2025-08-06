@@ -406,3 +406,106 @@ footer {
   from { bottom: -70px; opacity: 0; }
   to { bottom: 0; opacity: 1; }
 }
+/* ===== Mobile Menu Social Icons ===== */
+.overlay-social {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.overlay-social a {
+  display: block;
+  width: 40px;
+  height: 40px;
+  background: var(--red); /* brand red */
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.overlay-social a:hover {
+  transform: scale(1.1);
+  background: var(--gold); /* brand gold on hover */
+}
+
+.overlay-social img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== Floating Social Bar (Desktop) ===== */
+.floating-social {
+  position: fixed;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 99999;
+}
+
+.floating-social a {
+  display: block;
+  width: 45px;
+  height: 45px;
+  background: var(--red); /* brand red */
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  overflow: hidden;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.floating-social a:hover {
+  transform: scale(1.1);
+  background: var(--gold); /* brand gold on hover */
+}
+
+.floating-social img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Hide desktop floating bar on mobile */
+@media (max-width: 768px) {
+  .floating-social {
+    display: none;
+  }
+}
+/* === Social Icons Styling === */
+
+/* Floating bar (desktop) */
+.floating-social a,
+.overlay-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%; /* perfect circle */
+  background: transparent; /* no fill */
+  overflow: hidden;
+  box-shadow: none; /* remove extra shadow if desired */
+  border: none; /* remove border */
+}
+
+.floating-social img,
+.overlay-social img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* keeps original logo shape */
+  border: none !important; /* no border at all */
+  background: transparent;
+}
+
+/* Hover effect: subtle scale up */
+.floating-social a:hover,
+.overlay-social a:hover {
+  transform: scale(1.1);
+  background: rgba(0, 0, 0, 0.05); /* light hover bg */
+  transition: all 0.3s ease;
+}
