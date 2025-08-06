@@ -96,13 +96,17 @@
   </div>
 </section>
 
-<!-- Gallery -->
+<!-- Gallery Carousel -->
 <section id="gallery" class="gallery-section" data-animate="fade-up">
   <h2>Gallery</h2>
-  <div class="gallery-grid">
-    <img src="gallery1.jpg" alt="Gallery 1">
-    <img src="gallery2.jpg" alt="Gallery 2">
-    <img src="gallery3.jpg" alt="Gallery 3">
+  <div class="gallery-wrapper">
+    <button class="gallery-nav prev">&#10094;</button>
+    <div class="gallery-carousel">
+      <div class="gallery-slide"><img src="gallery1.jpg" alt="Gallery 1"></div>
+      <div class="gallery-slide"><img src="gallery2.jpg" alt="Gallery 2"></div>
+      <div class="gallery-slide"><img src="gallery3.jpg" alt="Gallery 3"></div>
+    </div>
+    <button class="gallery-nav next">&#10095;</button>
   </div>
 </section>
 
@@ -113,7 +117,7 @@
     <div class="contact-info">
       <p><strong>Address:</strong> 167B Hatfield Rd, St Albans AL1 4LB</p>
       <p><strong>Phone:</strong> <a href="tel:01727869200">01727 869 200</a></p>
-      <p><strong>Hours:</strong> Mon Closed Tue–Thu 5–10pm, Fri–Sun 5–10:30pm</p>
+      <p><strong>Hours:</strong> Tue–Thu 5–10pm, Fri–Sun 5–10:30pm, Mon Closed</p>
     </div>
     <iframe class="map-frame" src="https://www.google.com/maps?q=167B+Hatfield+Rd,+St+Albans+AL1+4LB&output=embed"></iframe>
   </div>
@@ -123,13 +127,12 @@
   &copy; 2025 Omsin's Thai Takeaway. Website by Refined Sites.
 </footer>
 
-<script src="omsin.js"></script>
 <!-- Fixed Bottom Bar -->
 <div class="fixed-footer">
   <a href="tel:01727869200" class="footer-btn call-btn">📞 Call Us</a>
   <a href="#menu" class="footer-btn order-btn-footer">🛒 Order Now</a>
 </div>
 
+<script src="omsin.js"></script>
 </body>
 </html>
-
