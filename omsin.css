@@ -34,11 +34,13 @@ body {
 section h2 {
   text-align: center;
   font-family: 'Poppins', sans-serif;
-  font-weight: 700;
+  font-weight: 500; /* was 700 */
   font-size: 2rem;
+  letter-spacing: 0.5px; /* slight spacing for elegance */
   color: var(--red);
   margin-bottom: 30px;
 }
+
 
 /* ===== Navbar ===== */
 header {
